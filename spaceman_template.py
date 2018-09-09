@@ -110,15 +110,19 @@ def spaceman(secret_word):
     total_letters_guessed = ""
     total_guesses_left = 7
 
-    while is_word_guessed(secret_word, total_letters_guessed) != True or total_guesses_left == 0:
+    while is_word_guessed(secret_word, total_letters_guessed) != True or total_guesses_left > 0:
         guess = input("Please guess one letter: ")
         total_letters_guessed = total_letters_guessed + guess
         total_guesses_left = total_guesses_left - 1
+        print("total_guesses_left = " + str(total_guesses_left))
         if secret_word.find(guess) != -1:
             print("Yay! Your letter was in the word and the word now looks like this:")
             get_guessed_word(secret_word, total_letters_guessed)
             print("You also now have the following letters left to use:")
             get_available_letters(total_letters_guessed)
+            print("You have a total number of %d guesses left" %(total_guesses_left))
+            if total_guesses_left == 0:
+                break
         else:
             print("Try again! You have %d guesses left!" %(total_guesses_left))
             if total_guesses_left == 0:
