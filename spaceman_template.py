@@ -1,6 +1,7 @@
 import random
 
 # REMEMBER strings in Python are IMMUTABLE!!
+# TASKS: check for input type
 
 def load_word():
    f = open('spaceman_words.txt', 'r')
@@ -10,6 +11,13 @@ def load_word():
    words_list = words_list[0].split(' ')
    secret_word = random.choice(words_list)
    return secret_word
+
+def is_guess_valid(the_guess):
+    valid_guesses = list("abcdefghijklmnopqrstuvwxyz")
+    if the_guess in valid_guesses:
+        return True
+    else:
+        return False
 
 def is_word_guessed(secret_word, letters_guessed):
     '''
@@ -112,21 +120,24 @@ def spaceman(secret_word):
 
     while is_word_guessed(secret_word, total_letters_guessed) != True or total_guesses_left > 0:
         guess = input("Please guess one letter: ")
-        total_letters_guessed = total_letters_guessed + guess
-        print("total_guesses_left = " + str(total_guesses_left))
-        if secret_word.find(guess) != -1:
-            print("Yay! Your letter was in the word and the word now looks like this:")
-            get_guessed_word(secret_word, total_letters_guessed)
-            print("You also now have the following letters left to use:")
-            get_available_letters(total_letters_guessed)
-            print("You have a total number of %d guesses left" %(total_guesses_left))
-            if total_guesses_left == 0:
-                break
+        if is_guess_valid(guess):
+            total_letters_guessed = total_letters_guessed + guess
+            # print("total_guesses_left = " + str(total_guesses_left))
+            if secret_word.find(guess) != -1:
+                print("Yay! Your letter was in the word and the word now looks like this:")
+                get_guessed_word(secret_word, total_letters_guessed)
+                print("You also now have the following letters left to use:")
+                get_available_letters(total_letters_guessed)
+                print("You have a total number of %d guesses left" %(total_guesses_left))
+                if total_guesses_left == 0:
+                    break
+            else:
+                total_guesses_left = total_guesses_left - 1
+                print("Try again! You have %d guesses left!" %(total_guesses_left))
+                if total_guesses_left == 0:
+                    break
         else:
-            print("Try again! You have %d guesses left!" %(total_guesses_left))
-            total_guesses_left = total_guesses_left - 1
-            if total_guesses_left == 0:
-                break
+            print("Try entering a lowercase letter from the alphabet!")
 
     if is_word_guessed(secret_word, total_letters_guessed):
         print("Congratulations! You have guessed the word before Spaceman blasted off into space!")
