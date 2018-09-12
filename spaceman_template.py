@@ -1,7 +1,7 @@
 import random
 
 # REMEMBER strings in Python are IMMUTABLE!!
-# TASKS: check for input type
+# TASKS: check for input type (control-space and control-d)
 
 def load_word():
    f = open('spaceman_words.txt', 'r')
@@ -70,7 +70,7 @@ def get_guessed_word(secret_word, letters_guessed):
         # replaces the first instance of the letter found, but what about following instances??
         while secret_word[found_index:].find(letter) != -1:
             updated_guess_so_far = updated_guess_so_far[:found_index] + letter + updated_guess_so_far[found_index+1:]
-            if found_index == len(secret_word) - 1 or secret_word[found_index+1:].find(letter) == -1:
+            if found_index == len(secret_word) - 1 or secret_word[found_index + 1:].find(letter) == -1:
                 break
             found_index = (found_index + 1) + secret_word[found_index + 1:].find(letter)
             print ("found_index = " + str(found_index))
@@ -119,25 +119,28 @@ def spaceman(secret_word):
     total_guesses_left = 7
 
     while is_word_guessed(secret_word, total_letters_guessed) != True or total_guesses_left > 0:
-        guess = input("Please guess one letter: ")
-        if is_guess_valid(guess):
-            total_letters_guessed = total_letters_guessed + guess
-            # print("total_guesses_left = " + str(total_guesses_left))
-            if secret_word.find(guess) != -1:
-                print("Yay! Your letter was in the word and the word now looks like this:")
-                get_guessed_word(secret_word, total_letters_guessed)
-                print("You also now have the following letters left to use:")
-                get_available_letters(total_letters_guessed)
-                print("You have a total number of %d guesses left" %(total_guesses_left))
-                if total_guesses_left == 0:
-                    break
+        try:
+            guess = input("Please guess one letter: ")
+            if is_guess_valid(guess):
+                total_letters_guessed = total_letters_guessed + guess
+                # print("total_guesses_left = " + str(total_guesses_left))
+                if secret_word.find(guess) != -1:
+                    print("Yay! Your letter was in the word and the word now looks like this:")
+                    get_guessed_word(secret_word, total_letters_guessed)
+                    print("You also now have the following letters left to use:")
+                    get_available_letters(total_letters_guessed)
+                    print("You have a total number of %d guesses left" %(total_guesses_left))
+                    if total_guesses_left == 0:
+                        break
+                else:
+                    total_guesses_left = total_guesses_left - 1
+                    print("Try again! You have %d guesses left!" %(total_guesses_left))
+                    if total_guesses_left == 0:
+                        break
             else:
-                total_guesses_left = total_guesses_left - 1
-                print("Try again! You have %d guesses left!" %(total_guesses_left))
-                if total_guesses_left == 0:
-                    break
-        else:
-            print("Try entering a lowercase letter from the alphabet!")
+                print("Try entering a lowercase letter from the alphabet!")
+        except EOFError:
+            print("Ugh. Please don't try to break this piece of code.")
 
     if is_word_guessed(secret_word, total_letters_guessed):
         print("Congratulations! You have guessed the word before Spaceman blasted off into space!")
