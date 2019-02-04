@@ -1,4 +1,5 @@
 import random
+import sys
 from ufo import *
 
 def load_word():
@@ -40,7 +41,7 @@ def is_word_guessed(secret_word, letters_guessed):
 def get_guessed_word(secret_word, letters_guessed):
     num_underscores = len(secret_word)
     guess_so_far = ""
-    for underscores in range(num_underscores):
+    for underscores in range(num_underscores-1):
         guess_so_far = guess_so_far + "_"
 
     updated_guess_so_far = guess_so_far
@@ -54,8 +55,52 @@ def get_guessed_word(secret_word, letters_guessed):
             found_index = (found_index + 1) + secret_word[found_index + 1:].find(letter)
             # print ("found_index = " + str(found_index))
 
-    print("Your guess so far: " + updated_guess_so_far)
     return updated_guess_so_far
+
+def word_reader(updated_guess_so_far):
+    index = 0
+    dictionary_of_letters = {}
+    for letter in updated_guess_so_far:
+        if letter != "_":
+            dictionary_of_letters[index] = letter
+        index += 1
+    return dictionary_of_letters
+
+# here dicitonary_of_letters is represented by secret_word_bits, which is ultimately a dicitonary
+
+def word_searcher(secret_word_bits, excluded_letters):
+    f = open('nouns.txt', 'r')
+    words_list = f.readlines()
+    f.close()
+    possible_words_list = []
+    for word in words_list:
+        if len(secret_word_bits) != len(word.strip('\n')):
+           continue
+        else:
+           #use word_reader to convert the word in words_list into a dictionary that can be compared with a dicitonary from the updated_guess_so_far
+           dictionary_of_letters_in_words_list = word_reader(word)
+           superset = dictionary_of_letters_in_words_list
+           dictionary_of_letters_in_secret_word_bits = word_reader(secret_word_bits)
+           subset = dictionary_of_letters_in_secret_word_bits
+           if all(item in superset.items() for item in subset.items()):
+               possible_words_list.append(word.strip('\n'))
+    # print(possible_words_list)
+    filtered_list = []
+    for word in possible_words_list:
+        letter_found = False
+        # print("word high level: " + word)
+        for letter in excluded_letters:
+            # print("letter high level: " + letter)
+            if letter in word:
+                letter_found = True
+                # print("word: " + word)
+                # possible_words_list.remove(word)
+                break
+        if letter_found == False:
+            filtered_list.append(word)
+
+    print(filtered_list)
+    return filtered_list
 
 def get_available_letters(letters_guessed):
 
@@ -71,6 +116,7 @@ def UFO_game(secret_word):
 
     game_running = False
     total_letters_guessed = ""
+    excluded_letters = ""
     total_guesses_left = 6
     letters_guessed = ""
 
@@ -82,7 +128,12 @@ def UFO_game(secret_word):
 
     while game_running and (is_word_guessed(secret_word, total_letters_guessed) != True or total_guesses_left > 0):
         try:
-            get_guessed_word(secret_word, letters_guessed)
+            sys.stdout.flush()
+            guessed_word = get_guessed_word(secret_word, letters_guessed)
+            print("Your guessed word looks like this so far: ")
+            print(guessed_word)
+            print("Your guessed word is one of the following words:")
+            word_searcher(guessed_word, excluded_letters)
             guess = input("Please guess one letter: ")
             # print("guess=" + guess)
             if is_guess_valid(guess) and is_guess_original(guess, letters_guessed):
@@ -101,6 +152,8 @@ def UFO_game(secret_word):
                         break
                 else:
                     total_guesses_left = total_guesses_left - 1
+                    excluded_letters = excluded_letters + guess
+                    print("EXCLUDED_LETTERS:" + excluded_letters )
                     print("Oh no! You are getting closer to the alien spaceship! Try again! You have %d guesses left!" %(total_guesses_left))
                     get_guessed_word(secret_word, letters_guessed)
                     print(x[6-total_guesses_left])
@@ -120,5 +173,4 @@ def UFO_game(secret_word):
 
 
 # START GAME
-secret_word = load_word()
 UFO_game(load_word())

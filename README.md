@@ -2,7 +2,7 @@
 
 This game was created for the Codeacademy 2019 Summer internship.
 
-Play it to see what it's about! Run "python3 UFO_game.py" in your terminal to play the game! 
+Play it to see what it's about! Run "python3 UFO_game.py" in your terminal to play the game!
 
 -----------------------------------------
 
@@ -32,3 +32,7 @@ checks if the input matches with a letter from the word, counter ++
 loops until word is guessed or 6 guesses are made
 
 show the whole secret word
+
+#TODO
+
+add suggestions of possible words from dictionary 
