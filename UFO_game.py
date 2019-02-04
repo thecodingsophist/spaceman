@@ -41,6 +41,7 @@ def is_word_guessed(secret_word, letters_guessed):
 def get_guessed_word(secret_word, letters_guessed):
     num_underscores = len(secret_word)
     guess_so_far = ""
+    # Is range upperbound inclusive or exclusive?
     for underscores in range(num_underscores-1):
         guess_so_far = guess_so_far + "_"
 
@@ -173,4 +174,5 @@ def UFO_game(secret_word):
 
 
 # START GAME
-UFO_game(load_word())
+if __name__ == '__main__':
+    UFO_game(load_word())

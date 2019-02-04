@@ -39,14 +39,7 @@ def word_searcher(secret_word_bits, excluded_letters):
                 break
         if letter_found == False:
             filtered_list.append(word)
-    #not sure why the for loop doesn't go through all words the first time??
-    # for word in possible_words_list:
-    #     print("word high level: " + word)
-    #     for letter in excluded_letters:
-    #         # print("letter high level: " + letter)
-    #         if letter in word:
-    #             # print("word: " + word)
-    #             possible_words_list.remove(word)
+
     print(filtered_list)
     return filtered_list
 
