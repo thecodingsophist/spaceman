@@ -13,6 +13,7 @@ def load_word():
 
 def is_guess_valid(the_guess):
     valid_guesses = list("abcdefghijklmnopqrstuvwxyz")
+    print(valid_guesses)
     if the_guess in valid_guesses:
         return True
     else:
@@ -27,15 +28,16 @@ def is_guess_original(the_guess, letters_guessed):
 
 def is_word_guessed(secret_word, letters_guessed):
     new_secret_word = secret_word
-
+    print("is_word_guessed is run")
     for letter in letters_guessed:
         new_secret_word = secret_word.replace(letter, "")
         secret_word = new_secret_word
-    if new_secret_word == "":
-        # print("t")
+        print("new_secret_word" + str(len(new_secret_word)))
+    if len(new_secret_word) < 1:
+        print("is word guessed is true")
         return True
     else:
-        # print("f")
+        print("is word guessed is false")
         return False
 
 def get_guessed_word(secret_word, letters_guessed):
@@ -56,6 +58,7 @@ def get_guessed_word(secret_word, letters_guessed):
             found_index = (found_index + 1) + secret_word[found_index + 1:].find(letter)
             # print ("found_index = " + str(found_index))
 
+    print(updated_guess_so_far)
     return updated_guess_so_far
 
 def word_reader(updated_guess_so_far):
@@ -113,6 +116,16 @@ def get_available_letters(letters_guessed):
     print(letters_not_guessed)
     return letters_not_guessed
 
+def noUnderscore(guessed_word):
+    count= len(guessed_word)
+    for c in guessed_word:
+        if c != "_": #this needs to be the correct character
+            count-=1
+    if count == 0:
+        return True
+    else:
+        return False
+
 def UFO_game(secret_word):
 
     game_running = False
@@ -127,7 +140,10 @@ def UFO_game(secret_word):
     else:
         exit()
 
-    while game_running and (is_word_guessed(secret_word, total_letters_guessed) != True or total_guesses_left > 0):
+
+    guessed_word = ""
+    while game_running and is_word_guessed(secret_word, letters_guessed) == False and total_guesses_left > 0:
+    # while game_running and noUnderscore(guessed_word) == False and total_guesses_left > 0:
         try:
             sys.stdout.flush()
             guessed_word = get_guessed_word(secret_word, letters_guessed)
@@ -144,8 +160,10 @@ def UFO_game(secret_word):
                 if secret_word.find(guess) != -1:
                     print("Yay! Your letter was in the word and the word now looks like this:")
                     get_guessed_word(secret_word, total_letters_guessed)
-                    # print("You also now have the following letters left to use:")
-                    # get_available_letters(total_letters_guessed)
+                    print("You also now have the following letters left to use:")
+                    get_available_letters(total_letters_guessed)
+                    letters_guessed += guess
+                    #print("letters_guessed" + letters_guessed)
                     print("You have a total number of %d guesses left" %(total_guesses_left))
                     print("Be careful though! You are now this far away from getting abducted!")
                     print(x[6-total_guesses_left])
