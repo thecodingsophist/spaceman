@@ -32,8 +32,9 @@ def is_word_guessed(secret_word, letters_guessed):
     for letter in letters_guessed:
         new_secret_word = secret_word.replace(letter, "")
         secret_word = new_secret_word
-        print("new_secret_word" + str(len(new_secret_word)))
-    if len(new_secret_word) < 1:
+        #print("new_secret_word" + str(len(new_secret_word)))
+    #for some reason, the new secret word has to have 1 letter, not sure what the letter is
+    if len(new_secret_word) <= 1:
         print("is word guessed is true")
         return True
     else:
