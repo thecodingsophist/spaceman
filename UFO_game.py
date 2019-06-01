@@ -12,7 +12,7 @@ def load_word():
    secret_word = random.choice(words_list)
    return secret_word
 
-#this sees if
+#this sees if the guessed letter is an actual letter
 def is_guess_valid(the_guess):
     valid_guesses = list("abcdefghijklmnopqrstuvwxyz")
     print(valid_guesses)
