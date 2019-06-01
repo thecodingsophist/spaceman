@@ -12,7 +12,7 @@ def load_word():
    secret_word = random.choice(words_list)
    return secret_word
 
-#this sees if the guessed letter is an actual letter
+#  this sees if the guessed letter is an actual letter
 def is_guess_valid(the_guess):
     valid_guesses = list("abcdefghijklmnopqrstuvwxyz")
     print(valid_guesses)
@@ -21,6 +21,7 @@ def is_guess_valid(the_guess):
     else:
         return False
 
+# this sees if the guess is original
 def is_guess_original(the_guess, letters_guessed):
     if the_guess in letters_guessed:
         print("Oh no! You've already guessed that letter. Try again")
