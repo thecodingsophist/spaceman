@@ -2,6 +2,7 @@ import random
 import sys
 from ufo import *
 
+# this loads the word from the dictionary
 def load_word():
    f = open('nouns.txt', 'r')
    words_list = f.readlines()
