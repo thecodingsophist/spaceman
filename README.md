@@ -1,6 +1,6 @@
 # UFO: THE GAME
 
-This game was created for the Codeacademy 2019 Summer internship.
+This game was created for the Codeacademy 2019 Summer internship and later edited after I didn't get past the first round of submissions. 
 
 Play it to see what it's about! Run "python3 UFO_game.py" in your terminal to play the game!
 
