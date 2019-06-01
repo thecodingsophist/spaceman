@@ -29,6 +29,7 @@ def is_guess_original(the_guess, letters_guessed):
     else:
         return True
 
+# was the word guessed?
 def is_word_guessed(secret_word, letters_guessed):
     new_secret_word = secret_word
     print("is_word_guessed is run")
@@ -44,6 +45,7 @@ def is_word_guessed(secret_word, letters_guessed):
         print("is word guessed is false")
         return False
 
+# what is the current word?
 def get_guessed_word(secret_word, letters_guessed):
     num_underscores = len(secret_word)
     guess_so_far = ""
