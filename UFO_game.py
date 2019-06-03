@@ -67,6 +67,8 @@ def get_guessed_word(secret_word, letters_guessed):
     print(updated_guess_so_far)
     return updated_guess_so_far
 
+# this reads in a di
+
 def word_reader(updated_guess_so_far):
     index = 0
     dictionary_of_letters = {}
@@ -76,7 +78,7 @@ def word_reader(updated_guess_so_far):
         index += 1
     return dictionary_of_letters
 
-# here dicitonary_of_letters is represented by secret_word_bits, which is ultimately a dicitonary
+# here dictonary_of_letters is represented by secret_word_bits, which is ultimately a dicitonary
 
 def word_searcher(secret_word_bits, excluded_letters):
     f = open('nouns.txt', 'r')
