@@ -67,7 +67,7 @@ def get_guessed_word(secret_word, letters_guessed):
     print(updated_guess_so_far)
     return updated_guess_so_far
 
-# this reads in a di
+#use word_reader to convert the word in words_list into a dictionary that can be compared with a dicitonary from the updated_guess_so_far
 
 def word_reader(updated_guess_so_far):
     index = 0

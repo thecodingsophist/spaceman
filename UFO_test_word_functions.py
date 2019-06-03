@@ -1,3 +1,4 @@
+
 def word_reader(updated_guess_so_far):
     index = 0
     dictionary_of_letters = {}
