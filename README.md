@@ -1,8 +1,6 @@
 # UFO: THE GAME
 
-This game was created for the Codeacademy 2019 Summer internship.
-
-Play it to see what it's about! Run "python3 UFO_game.py" in your terminal to play the game!
+Download and play the game to see what it's about! Run "python3 UFO_game.py" in your terminal to play the game!
 
 PLAY HINT: In the very beginning of the game, there will be many possible words that populate the possible_words_list, and will most likely fill up most of the screen. At the bottom of the screen, there will be a prompt that asks to guess a letter. I suggest starting with a vowel ('a - e - i - o - u') to eliminate a good number of the possible words in the possible_words_list and to see the entirety of the different things that are going on in the game. Otherwise, scroll up to see everything that is going on in the game.
 
